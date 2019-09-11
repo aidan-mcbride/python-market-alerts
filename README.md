@@ -24,3 +24,30 @@ Get ubuntu desktop alerts when silver's spot price reaches given thresholds.
 - [ ] Set period dynamically based on when any given API updates.
 - [ ] Configuration option to start program when computer boots.
 - [ ] Choose what type of market to track.
+
+## Dependencies
+
+* requests
+
+### Development Dependencies
+
+**Linting & Formatting**
+
+* black
+* flake8
+* isort
+
+**Type Checking**
+
+* mypy
+
+**Testing**
+
+* pytest
+* pytest-cov
+
+**Continuous Integration**
+
+* pre-commit
+
+*I set up my tooling based on [this article](https://sourcery.ai/blog/python-best-practices/).*
