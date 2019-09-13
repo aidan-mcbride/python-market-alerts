@@ -27,6 +27,22 @@ def extract_silver_price(soup: BeautifulSoup) -> float:
     return price
 
 
+def compare_to_limit(price: float, limit: float, side: str) -> bool:
+    """
+    checks if a given price has crossed a threshold in a given direction
+
+    price: the price to check
+    limit: the threshold
+    direction: string, either 'above' or 'below', where price should be in relation to limit.
+    """
+    if side == "above":
+        return price > limit
+    elif side == "below":
+        return price < limit
+    else:
+        raise ValueError("'side' must be 'above' or 'below'")
+
+
 if __name__ == "__main__":
     """
     Run program
