@@ -8,16 +8,24 @@ Get ubuntu desktop alerts when silver's spot price reaches given thresholds.
 
 **CORE**
 
-- [ ] Get silver spot price from some public API
+- [ ] ~~Get silver spot price from some public API~~ Scrape silver spot price from a website.
+
+  *(I couldn't find a free, public API with commodity prices)*
+
 - [ ] Set up some sort of scheduler to get spot price periodically.
+
 - [ ] Check spot price against some threshold
+
 - [ ] Push notifications to Ubuntu desktop when threshold is crossed.
+
 - [ ] Create some command-line interface to set threshold.
+
+- [ ] Run application as a daemon? In background without leaving a terminal window open.
 
 **META** - requirements for *how* the project is built:
 
 * Test-Driven Development - no code will be committed without a corresponding test.
-* Docstring documentation for every method.
+* Docstring documentation for every function.
 
 **OPTIONAL EXTENSIONS**
 
@@ -28,6 +36,7 @@ Get ubuntu desktop alerts when silver's spot price reaches given thresholds.
 ## Dependencies
 
 * requests
+* beautifulsoup4
 
 ### Development Dependencies
 
@@ -51,3 +60,20 @@ Get ubuntu desktop alerts when silver's spot price reaches given thresholds.
 * pre-commit
 
 *I set up my tooling based on [this article](https://sourcery.ai/blog/python-best-practices/).*
+
+---
+
+### Tests
+
+**Note on test sparseness:**
+
+Many sources advise against writing unit tests that simply test that an imported package is working - e.g. one shouldn't write a test to confirm that requests can get a response from a website. Since a lot of this particular application is simply gluing together various packages, there aren't a lot of tests.
+
+---
+
+To run pre-commit script without actually committing:
+
+```bash
+pipenv run pre-commit run --all-files
+```
+
