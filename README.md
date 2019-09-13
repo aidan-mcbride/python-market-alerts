@@ -61,6 +61,10 @@ Get ubuntu desktop alerts when silver's spot price reaches given thresholds.
 
 *I set up my tooling based on [this article](https://sourcery.ai/blog/python-best-practices/).*
 
+### OS Dependencies
+
+* [notify-send](https://manpages.ubuntu.com/manpages/disco/en/man1/notify-send.1.html) must be installed for sending desktop notifications
+
 ---
 
 ### Tests
@@ -76,4 +80,3 @@ To run pre-commit script without actually committing:
 ```bash
 pipenv run pre-commit run --all-files
 ```
-

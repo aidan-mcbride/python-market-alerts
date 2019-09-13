@@ -4,6 +4,9 @@ Entire Application is in this file.
 Because the whole thing is really quite simple.
 """
 
+import os
+import subprocess
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -43,13 +46,33 @@ def compare_to_limit(price: float, limit: float, side: str) -> bool:
         raise ValueError("'side' must be 'above' or 'below'")
 
 
+def send_notification(header: str = "no header set", message: str = "no message set"):
+    """
+    Push a notification to the user's ubuntu desktop using
+    ubuntu notify-send in a subprocess call.
+
+    header: the header of the notification
+    message: the body of the notification
+    """
+    notification = [
+        "notify-send",
+        header,
+        message,
+        "--urgency=critical",
+        "--icon={}".format(os.path.abspath("icon.svg")),
+    ]
+    subprocess.call(notification)
+
+
 if __name__ == "__main__":
     """
     Run program
     """
     url = "https://www.jmbullion.com/charts/silver-prices/"
 
-    html = get_page_content(url)
-    soup = html_to_soup(html)
-    silver_price = extract_silver_price(soup)
-    print(silver_price)
+    # html = get_page_content(url)
+    # soup = html_to_soup(html)
+    # silver_price = extract_silver_price(soup)
+    # print(silver_price)
+
+    send_notification(header="test header", message="test message")
