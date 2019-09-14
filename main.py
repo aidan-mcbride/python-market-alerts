@@ -10,6 +10,10 @@ import subprocess
 import requests
 from bs4 import BeautifulSoup
 
+# hard-coded global source,
+# since right now there is no support for scraping multiple sources
+source = "https://www.jmbullion.com/charts/silver-prices/"
+
 
 def get_page_content(url: str) -> str:
     """retrieve html from a given url"""
@@ -64,15 +68,15 @@ def send_notification(header: str = "no header set", message: str = "no message 
     subprocess.call(notification)
 
 
+def get_current_price(source: str) -> float:
+    html = get_page_content(source)
+    soup = html_to_soup(html)
+    silver_price = extract_silver_price(soup)
+    return silver_price
+
+
 if __name__ == "__main__":
     """
     Run program
     """
-    url = "https://www.jmbullion.com/charts/silver-prices/"
-
-    # html = get_page_content(url)
-    # soup = html_to_soup(html)
-    # silver_price = extract_silver_price(soup)
-    # print(silver_price)
-
-    send_notification(header="test header", message="test message")
+    print(get_current_price(source))
