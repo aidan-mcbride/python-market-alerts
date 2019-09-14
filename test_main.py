@@ -4,7 +4,6 @@ import main
 
 
 def test_compare_to_limit_below():
-
     """Return `True` if checking if 15.00 is below 20.00"""
     expected = True
     actual = main.compare_to_limit(price=15.00, limit=20.00, side="below")
@@ -17,7 +16,6 @@ def test_compare_to_limit_below():
 
 
 def test_compare_to_limit_above():
-
     """Return `True` if checking if 20.00 is above 15.00"""
     expected = True
     actual = main.compare_to_limit(price=20.00, limit=15.00, side="above")
@@ -39,3 +37,15 @@ def test_compare_to_limit_invalid_side():
     with pytest.raises(ValueError) as actual:
         main.compare_to_limit(price=1.00, limit=2.00, side=None)
     assert str(actual.value) == expected
+
+
+def test_create_source_name():
+    test_source = "https://silverprice.org/"
+    expected = "silverprice.org"
+    actual = main.create_source_name(test_source)
+    assert expected == actual
+
+    test_source = "https://www.jmbullion.com/charts/silver-prices/"
+    expected = "jmbullion.com"
+    actual = main.create_source_name(test_source)
+    assert expected == actual

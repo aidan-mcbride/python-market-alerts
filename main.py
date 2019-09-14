@@ -79,6 +79,20 @@ def get_current_price(source: str) -> float:
     return silver_price
 
 
+def create_source_name(source: str) -> str:
+    """returns a human-readable name for a source from a given url"""
+    # remove http:// or https://
+    if source.startswith("https://"):
+        source = source.split("https://")[1]
+    if source.startswith("http://"):
+        source = source.split("http://")[1]
+    # remove 'www.' if present
+    if source.startswith("www."):
+        source = source.split("www.")[1]
+    source = source.split("/")[0]
+    return source
+
+
 def check_price(source: str, limit: float, side: str):
     """
     gets the current price of silver,
@@ -88,9 +102,7 @@ def check_price(source: str, limit: float, side: str):
     silver_price: float = get_current_price(source)
     try:
         if compare_to_limit(price=silver_price, limit=limit, side=side):
-            # TODO: write this
-            # source_name = create_source_name(source)
-            source_name: str = "JMBullion"
+            source_name = create_source_name(source)
             header: str = "Silver spot price: ${}".format(silver_price)
             message: str = "{} is reporting that silver is currently priced at ${} per ounce".format(
                 source_name, silver_price
@@ -104,4 +116,4 @@ if __name__ == "__main__":
     """
     Run program
     """
-    check_price(source=source, limit=10.00, side="above")
+    check_price(source=source, limit=20.00, side="above")
