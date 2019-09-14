@@ -10,6 +10,10 @@ import subprocess
 import requests
 from bs4 import BeautifulSoup
 
+# hard-coded global source,
+# since right now there is no support for scraping multiple sources
+source = "https://www.jmbullion.com/charts/silver-prices/"
+
 
 def get_page_content(url: str) -> str:
     """retrieve html from a given url"""
@@ -64,15 +68,40 @@ def send_notification(header: str = "no header set", message: str = "no message 
     subprocess.call(notification)
 
 
+def get_current_price(source: str) -> float:
+    """
+    get the spot price of silver from given source
+    only works with one source right now.
+    """
+    html = get_page_content(source)
+    soup = html_to_soup(html)
+    silver_price = extract_silver_price(soup)
+    return silver_price
+
+
+def check_price(source: str, limit: float, side: str):
+    """
+    gets the current price of silver,
+    checks current price against set limit,
+    sends notification of limit reached
+    """
+    silver_price: float = get_current_price(source)
+    try:
+        if compare_to_limit(price=silver_price, limit=limit, side=side):
+            # TODO: write this
+            # source_name = create_source_name(source)
+            source_name: str = "JMBullion"
+            header: str = "Silver spot price: ${}".format(silver_price)
+            message: str = "{} is reporting that silver is currently priced at ${} per ounce".format(
+                source_name, silver_price
+            )
+            send_notification(header=header, message=message)
+    except ValueError as error:
+        return error
+
+
 if __name__ == "__main__":
     """
     Run program
     """
-    url = "https://www.jmbullion.com/charts/silver-prices/"
-
-    # html = get_page_content(url)
-    # soup = html_to_soup(html)
-    # silver_price = extract_silver_price(soup)
-    # print(silver_price)
-
-    send_notification(header="test header", message="test message")
+    check_price(source=source, limit=10.00, side="above")
