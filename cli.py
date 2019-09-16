@@ -10,6 +10,14 @@ defaults = dict(
 )
 
 
+@click.group()
+def cli():
+    """
+    CLI for starting and stopping market alerts daemon
+    """
+    pass
+
+
 @click.command()
 @click.option(
     "-i",
@@ -31,16 +39,25 @@ defaults = dict(
     type=str,
     help="either 'above' or 'below' - check that current price is above or below the given limit",
 )
-def run(interval: int, limit: float, side: str, source: str = defaults["source"]):
+def start(interval: int, limit: float, side: str, source: str = defaults["source"]):
     """
-    take inputs via CLI options
-    launch application with given options
+    Start daemon process with given options
     """
-
     main.check_price_periodically(
         interval=interval, source=source, limit=limit, side=side
     )
 
 
+@click.command()
+def stop():
+    """
+    Terminate daemon process
+    """
+    print("stop program")
+
+
+cli.add_command(start)
+cli.add_command(stop)
+
 if __name__ == "__main__":
-    run()
+    cli()
