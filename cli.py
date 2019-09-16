@@ -10,14 +10,6 @@ defaults = dict(
 )
 
 
-@click.group()
-def cli():
-    """
-    CLI for starting and stopping market alerts daemon
-    """
-    pass
-
-
 @click.command()
 @click.option(
     "-i",
@@ -48,16 +40,5 @@ def start(interval: int, limit: float, side: str, source: str = defaults["source
     )
 
 
-@click.command()
-def stop():
-    """
-    Terminate daemon process
-    """
-    print("stop program")
-
-
-cli.add_command(start)
-cli.add_command(stop)
-
 if __name__ == "__main__":
-    cli()
+    start()
