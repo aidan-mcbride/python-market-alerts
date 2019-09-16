@@ -12,16 +12,19 @@ defaults = dict(
 
 @click.command()
 @click.option(
+    "-i",
     "--interval",
     default=defaults["interval"],
     help="Number of seconds to wait between checking price. Default is 15 minutes(900 seconds)",
 )
 @click.option(
+    "-l",
     "--limit",
     default=defaults["limit"],
     help="Spot price of silver at which to be notified",
 )
 @click.option(
+    "-s",
     "--side",
     default=defaults["side"],
     help="either 'above' or 'below' - check that current price is above or below the given limit",
@@ -31,6 +34,7 @@ def run(interval: int, limit: float, side: str, source: str = defaults["source"]
     take inputs via CLI options
     launch application with given options
     """
+
     main.check_price_periodically(
         interval=interval, source=source, limit=limit, side=side
     )
