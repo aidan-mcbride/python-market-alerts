@@ -33,7 +33,7 @@ defaults = dict(
 )
 def start(interval: int, limit: float, side: str, source: str = defaults["source"]):
     """
-    Start daemon process with given options
+    Start program with given options
     """
     main.check_price_periodically(
         interval=interval, source=source, limit=limit, side=side
