@@ -113,17 +113,17 @@ def check_price(source: str, limit: float, side: str):
         return error
 
 
-def check_price_periodically(seconds: int, source: str, limit: float, side: str):
+def check_price_periodically(interval: int, source: str, limit: float, side: str):
     """
     run the `check_price` function periodically with the given parameters
 
-    seconds: how many seconds to wait between running check_price
+    interval: how many seconds to wait between running check_price
     source, limit, side: pass-through arguments for check_price
     """
     try:
         while True:
             check_price(source=source, limit=limit, side=side)
-            time.sleep(seconds)
+            time.sleep(interval)
     except KeyboardInterrupt:
         print("program terminated manually")
 
@@ -132,4 +132,4 @@ if __name__ == "__main__":
     """
     Run program
     """
-    check_price_periodically(seconds=10, source=source, limit=10.00, side="above")
+    check_price_periodically(interval=10, source=source, limit=10.00, side="above")
