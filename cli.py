@@ -5,8 +5,8 @@ import main
 defaults = dict(
     source="https://www.jmbullion.com/charts/silver-prices/",
     interval=900,
-    limit=1.00,
-    side="above",
+    # limit=1.00,
+    # side="above",
 )
 
 
@@ -20,13 +20,15 @@ defaults = dict(
 @click.option(
     "-l",
     "--limit",
-    default=defaults["limit"],
+    required=True,
+    type=float,
     help="Spot price of silver at which to be notified",
 )
 @click.option(
     "-s",
     "--side",
-    default=defaults["side"],
+    required=True,
+    type=str,
     help="either 'above' or 'below' - check that current price is above or below the given limit",
 )
 def run(interval: int, limit: float, side: str, source: str = defaults["source"]):
